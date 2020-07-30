@@ -16,7 +16,7 @@ export function timing() {
             let perfEntries = entryList.getEntries();
             LCP = perfEntries[0];
             observer.disconnect();//不再观察了
-        }).observe({ entryTypes: ['largest-contentful-paint'] });//观察页面中的意义的元素
+        }).observe({ entryTypes: ['largest-contentful-paint'] });//观察页面中最大元素
 
         new PerformanceObserver((entryList, observer) => {
             let lastEvent = getLastEvent();
@@ -67,7 +67,7 @@ export function timing() {
                 parseDOMTime: loadEventStart - domLoading,//DOM解析的时间
                 domContentLoadedTime: domContentLoadedEventEnd - domContentLoadedEventStart,
                 timeToInteractive: domInteractive - fetchStart,//首次可交互时间
-                loadTIme: loadEventStart - fetchStart //完整的加载时间
+                loadTime: loadEventStart - fetchStart //完整的加载时间
             });
 
 
@@ -86,7 +86,7 @@ export function timing() {
                 firstMeaningfulPaint: FMP.startTime,
                 largestContentfulPaint: LCP.startTime
             });
-        }, 3000);
+        }, 3000); // 为了防止拿不到数据  例如loadEventEnd
     });
 
 }
